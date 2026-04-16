@@ -1,3 +1,6 @@
+import { Hero } from "./components/dashboard/Hero";
+import { Information } from "./components/dashboard/Information";
+import { WhyChoose } from "./components/dashboard/WhyChoose";
 
 export default function App(){
 
@@ -49,22 +52,19 @@ export default function App(){
       WebkitMaskComposite: "source-in",
     }}
   />
-  <div className="flex justify-center items-center flex-col relative z-10 w-full">
-    <div className="mt-30 text-center">
-       <div className="font-hero text-7xl italic">Anon</div>
-    <div className="font-hero text-5xl w-full max-w-74">Me.</div>
-    <div className="w-max max-w-sm font-roboto text-[#828997] mt-3 text-sm">
-      Anon Me helps you collect honest feedback, anonymous, quick, and private.
+  <Hero />
+  <div className="flex justify-center items-center flex-col">
+    <div className="bg-[oklch(55.4% 0.046 257.417)]">
+    <WhyChoose  />
     </div>
-    <div>
-     <div className="mt-3">
-      <button className="bg-black text-white px-4 py-1 rounded-sm font-roboto cursor-pointer">Register</button>
-    </div>
-    <div className="mt-3">
-    <button className=" font-roboto text-black px-4 py-1 rounded-sm border border-black cursor-pointer">Login</button>
-    </div>
-    </div>
-    </div>
+    <div className='flex gap-8'>
+  <Information heading={"Fully Anonymous"}
+  paragraph={"You will receive feedback completely anonymously no names, no identities revealed."}
+   />
+  <Information heading={"Quick Setup"}
+  paragraph={"Get started quickly with easy registration and create your unique profile in just a few simple steps"}
+   />
+  </div>
   </div>
 </div>
 }

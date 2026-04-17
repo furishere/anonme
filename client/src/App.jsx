@@ -54,16 +54,10 @@ export default function App(){
   />
   <Hero />
   <div className="flex justify-center items-center flex-col">
-    <div className="bg-[oklch(55.4% 0.046 257.417)]">
-    <WhyChoose  />
-    </div>
-    <div className='flex gap-8'>
-  <Information heading={"Fully Anonymous"}
-  paragraph={"You will receive feedback completely anonymously no names, no identities revealed."}
-   />
-  <Information heading={"Quick Setup"}
-  paragraph={"Get started quickly with easy registration and create your unique profile in just a few simple steps"}
-   />
+    <div className="bg-black w-full mt-62">
+    <WhyChoose />
+    <Information heading={"Fully Anonymous"}
+    paragraph={"You will receive feedback completely anonymously no names, no identities revealed."}/>
   </div>
   </div>
 </div>

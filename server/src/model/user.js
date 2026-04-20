@@ -1,17 +1,19 @@
 import mongoose, { model, Schema } from "mongoose";
+import { lowercase } from "zod";
 
 const userSchema = new Schema({
     username : {
         type : String,
         unique : true,
         required : true,
-
+        lowercase : true
     },
     email : {
         type : String,
         required : true,
         lowercase : true,
-        trim : true
+        trim : true,
+        unique : true
     },
     password : {
         type: String,

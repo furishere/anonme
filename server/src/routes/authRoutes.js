@@ -6,4 +6,4 @@ const authrouter = Router()
 authrouter.post("/signup",signup)
 authrouter.post("/signin",signin)
 
-export {authrouter}
+export default authrouter

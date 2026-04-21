@@ -88,7 +88,7 @@ try{
      }, JWT_SECRET_USER)
 
     return res.json({
-        token : "sucessfull",
+        message : "sucessfull",
         token : `Bearer ${token}`
     })
 

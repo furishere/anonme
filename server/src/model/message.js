@@ -1,21 +1,30 @@
 import mongoose, { model, Schema } from "mongoose";
 
-const messageSchem = new Schema({
+const messageSchema = new Schema({
     text : {
-        type : String
+        type : String,
+        trim : true,
     },
     image :{
         type : String,
+        trim : true,
+        default : null
+    },
+    reply :{
+        type : String,
+        trim : true,
+        default : null
     },
     userId : {
         type : Schema.Types.ObjectId,
         ref : "User",
-        required : true
+        required : true,
+        index  : true
     }
 }, {timestamps : true})
 
 // timestamps: true → auto creates createdAt, updatedAt
 
-const messageModel = model("Message", messageSchem)
+const messageModel = model("Message", messageSchema)
 
 export {messageModel}

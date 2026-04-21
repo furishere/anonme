@@ -12,7 +12,6 @@ try{
     }
 
     res.json({
-        message  : "Profile",
         user
     })
 } catch(e){

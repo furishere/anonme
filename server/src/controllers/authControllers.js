@@ -89,7 +89,7 @@ try{
 
     return res.json({
         token : "sucessfull",
-        token : token
+        token : `Bearer ${token}`
     })
 
 

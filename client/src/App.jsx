@@ -1,8 +1,10 @@
-import { SignIn } from "./pages/SignIn";
+
+import { LandingPage } from "./pages/LandingPage";
 
 
 export default function App(){
   return <div>
-    <SignIn />
+    <LandingPage />
   </div>
+  
 }

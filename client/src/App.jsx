@@ -1,10 +1,9 @@
 
-import { LandingPage } from "./pages/LandingPage";
-
+import { SendAnonMessage } from "./pages/SendAnonMessage";
 
 export default function App(){
   return <div>
-    <LandingPage />
+    <SendAnonMessage />
   </div>
   
 }

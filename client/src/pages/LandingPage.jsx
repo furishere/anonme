@@ -1,6 +1,26 @@
 import React from 'react'
+import { Box } from '../components/Box'
 
 export const LandingPage = () => {
+const STEPS = [
+  {
+    n:     "01",
+    title: "Create your account",
+    desc:  "Sign up in seconds, just a username and password.",
+  },
+  {
+    n:     "02",
+    title: "Share your link",
+    desc:  "Get your unique link like anonme.app/u/yourname and share it anywhere.",
+  },
+  {
+    n:     "03",
+    title: "Receive messages",
+    desc:  "Anyone can send you an anonymous message. Only you can read them.",
+  },
+];
+
+
   return <div>
     <div  className='flex justify-center items-center flex-col'>
       <div className='bg-[#F5F5F5] py-1 px-6 border border-[#E5E5E5] rounded-4xl mt-5 text-sm font-roboto text-[#777777] flex items-center gap-2' >
@@ -23,8 +43,8 @@ export const LandingPage = () => {
         Sign in
         </button>
       </div>
-       <div className='bg-black w-full h-screen max-h-90 mt-4 flex flex-col items-center'>
-    <div className='text-white font-roboto  text-3xl mt-13'>
+      <div className='bg-black w-full items-center flex justify-center flex-col h-90'>
+      <div className='text-white font-roboto  text-3xl mt-13'>
         Why Choose 
         <span className='font-hero italic ml-2'>
             Anon Me.
@@ -33,7 +53,7 @@ export const LandingPage = () => {
     <div className='text-[#505555] text-sm font-roboto'>
         Simple by design. Honest by nature.
     </div>
-    <div className='flex mt-13 gap-3'>
+    <div className='flex mt-13 gap-10'>
     <Box 
     emoji={"👤"}
     heading={"Fully Anonymous"}
@@ -44,13 +64,38 @@ export const LandingPage = () => {
     heading={"Just One Link"}
     paragraph={"Share anywhere. Anyone can send you a message instantly."}
     />
-    <Box 
+     <Box 
     emoji={"📬"}
     heading={"Your Inbox, Private"}
     paragraph={"Only you can read what you've received. Always."}
     />
     </div>
-  </div>
+    </div>
+    <div className="bg-white px-12 py-12">
+        <h2 className="text-[20px] font-light text-black mb-8">How it works</h2>
+
+        <div className="flex flex-col gap-6">
+          {STEPS.map((s) => (
+            <div key={s.n} className="flex items-start gap-5">
+              <span
+                className="italic text-[48px] text-[#e5e5e5] leading-none shrink-0 w-14 font-hero"
+              >
+                {s.n}
+              </span>
+              <div className="pt-1">
+                <div className="text-[14px] font-medium text-black mb-1">{s.title}</div>
+                <div className="text-[13px] text-[#888] leading-relaxed">{s.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button
+          className="mt-8 bg-black text-white px-7 py-[11px] rounded-[2px] text-[13px] hover:bg-neutral-800 transition-colors border-none cursor-pointer"
+        >
+          Create your profile →
+        </button>
+      </div>
     </div>
   </div>
 }

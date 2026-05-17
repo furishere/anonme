@@ -48,16 +48,30 @@ export const updateProfile = async (req, res) => {
   }
 }
 
-export const getProfilePrivate = async(req, res) => {
+export const getProfilePrivate = async (req, res) => {
+  try {
     const userId = req.userId
 
-    const user = await User.find({
-        userId
-    })
+    const user = await User.findById(userId).select(
+      "username email bio avatar createdAt"
+    )
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      })
+    }
 
     res.json({
-        user
+      user
     })
+
+  } catch (e) {
+    return res.status(500).json({
+      message: "Internal server error",
+      error: e.message
+    })
+  }
 }
 
 export const publicProfile = async(req, res) => {
@@ -88,3 +102,4 @@ export const publicProfile = async(req, res) => {
     })
 }
 }
+

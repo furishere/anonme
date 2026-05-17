@@ -1,18 +1,18 @@
 import { Router } from "express";
-import { getRepliedMessage } from "../controllers/messageControllers";
+import { deleteMessage, getAllOwnMessage, publicRepliedMsg, replyToMessage, sendAnonoymousMessage } from "../controllers/messageControllers.js";
+import { userMiddleware } from "../middleware/userMiddleware.js";
 
 const messageRouter = Router()
 
-messageRouter.get("/public/:userId",getRepliedMessage)
-messageRouter.get("/private",)
+// private
+messageRouter.get("/private", userMiddleware,getAllOwnMessage)
+messageRouter.patch("/:id/reply",userMiddleware,replyToMessage)
+messageRouter.delete("/:id", userMiddleware,deleteMessage)
+
+// public
+messageRouter.post("/:username",sendAnonoymousMessage)
+messageRouter.get("/:username",publicRepliedMsg)
 
 export {
     messageRouter
 }
-
-// Method	Route	Purpose
-// POST	/api/message/:username	send anonymous msg
-// GET	/api/message/private	get all own msgs
-// GET	/api/message/public/:username	public replied msgs
-// PATCH	/api/message/:id/reply	reply to msg
-// DELETE	/api/message/:id	delete msg

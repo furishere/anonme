@@ -11,3 +11,4 @@ profileRouter.get("/:username",publicProfile)
 export {
     profileRouter
 }
+

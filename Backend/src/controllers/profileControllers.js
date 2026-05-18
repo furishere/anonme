@@ -1,3 +1,4 @@
+import { Message } from "../model/message.js"
 import { User } from "../model/user.js"
 import { userSchema } from "../schemas/userSchema.js"
 
@@ -103,3 +104,28 @@ export const publicProfile = async(req, res) => {
 }
 }
 
+export const deleteProfile = async(req, res) => {
+  try{
+    const user = req.userId
+
+    const deleteUser = await User.findByIdAndDelete(user)
+
+    if(!deleteUser){
+      return res.status(404).json({
+        message : "user not found"
+      })
+    }
+
+    await Message.deleteMany(user)
+
+    res.status(200).json({
+        message : "user deleted"
+    })
+
+  } catch(e){
+    return res.status(500).json({
+    message: "Internal server error",
+    error: e.message
+  })
+}
+}

@@ -4,9 +4,11 @@ import { authRouter } from "./routes/authRouter.js"
 import { connectDb } from "./config/db.js"
 import { profileRouter } from "./routes/profileRouter.js"
 import { messageRouter } from "./routes/messageRouter.js"
+import cors from "cors"
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 connectDb()
 app.use("/api/auth", authRouter)

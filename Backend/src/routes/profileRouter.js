@@ -7,6 +7,7 @@ const profileRouter = Router()
 profileRouter.patch("/",userMiddleware, updateProfile)
 profileRouter.get("/", userMiddleware,getProfilePrivate )
 profileRouter.get("/:username",publicProfile)
+profileRouter.delete("/", userMiddleware, )
 
 export {
     profileRouter

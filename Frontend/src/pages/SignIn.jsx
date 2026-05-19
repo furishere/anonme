@@ -10,10 +10,12 @@ export default function Signin(){
   const[password, setPassword] = useState("")
   const[passwordError, setPasswordError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [backendError, setBackendError] = useState("")
 
   const navigate = useNavigate()
 
   async function handleSignin(){
+    setBackendError("")
     try{
       let Error = false
 
@@ -37,17 +39,24 @@ export default function Signin(){
       }
     )
 
-    const token = response.data.token
+  const token = response.data.token
 
-    localStorage.setItem("token", token)
+  localStorage.setItem("token", token)
 
-    console.log(response.data)
+  localStorage.setItem(
+  "user",
+  JSON.stringify(response.data.user)
+  )
+
+  console.log(response.data)
 
     setEmail("")
     setPassword("")
 
+    navigate("/dashboard")
+
     } catch(e){
-      console.error(e)
+      setBackendError(e.response?.data?.message || "something went wrong")
     } finally {
       setLoading(false)
     }
@@ -95,6 +104,13 @@ export default function Signin(){
         </div>
       )
     }
+  {
+  backendError && (
+    <div className="text-red-500 text-sm mt-3">
+      {backendError}
+    </div>
+  )
+}
 
     <div className="bg-black text-white py-1 w-full max-w-xs text-center font-roboto mt-4 rounded-sm">
     <button
@@ -104,7 +120,7 @@ export default function Signin(){
     </div>
     <div  className="mt-4">
     <Paragraph 
-    Paragraph={"Your message are end-to-end private. We never read them"}/>
+    Paragraph={"Your messages are end-to-end private. We never read them"}/>
     </div>
     </div>
     </div>

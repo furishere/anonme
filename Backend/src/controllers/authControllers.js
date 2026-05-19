@@ -17,7 +17,8 @@ export const signUpController = async(req, res) => {
     const {username, email, password} = parsedData.data
 
     const existingUser = await User.findOne({
-        email :  email
+        email :  email,
+        username : username
     })
 
     if(existingUser){
@@ -88,7 +89,7 @@ export const signInController = async(req, res) => {
         })
 
         res.json({
-            token : `Bearer ${token}`,
+            token,
             user : {
                 id : user._id,
                 username : user.username,

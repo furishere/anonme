@@ -12,10 +12,13 @@ export default function SignUp(){
   const [emailError, setEmailError] = useState("")
   const [usernameError, setUsernameError] = useState("")
   const[passwordError, setPassowrdError] = useState("")
+  const [backendError, setBackendError] = useState("")
 
   const navigate = useNavigate()
 
   const handleSignup = async() => {
+
+    setBackendError("")
 
     let Error = false
 
@@ -54,7 +57,9 @@ export default function SignUp(){
       setUsername("")
       
     } catch(e){
-      console.log(e);
+      setBackendError(
+        e.response?.data?.message || "something went wrong"
+      )
       
     } finally{
       setLoading(false)
@@ -118,6 +123,12 @@ export default function SignUp(){
       passwordError&& (
         <div className="text-xs text-red-500 mt-1">
           {passwordError}
+        </div>
+      )
+    }{
+      backendError && (
+        <div className="text-red-500 text-sm mt-3">
+          {backendError}
         </div>
       )
     }

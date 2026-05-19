@@ -4,7 +4,12 @@ import { userSchema } from "../schemas/userSchema.js"
 
 export const updateProfile = async (req, res) => {
   try {
-    const parsedData = userSchema.safeParse(req.body)
+    const avatar = req.file ? `/uploads/${req.file.filename}` : undefined
+
+    const parsedData = userSchema.safeParse({
+      ...req.body,
+      avatar
+    })
 
     if (!parsedData.success) {
       return res.status(400).json({
@@ -13,15 +18,21 @@ export const updateProfile = async (req, res) => {
       })
     }
 
-    const { username, bio, avatar } = parsedData.data
+    const { username, bio } = parsedData.data
+
+    const updatedData = {
+      username,
+      bio
+    }
+
+    if(avatar){
+      updatedData.avatar = avatar
+    }
 
     const user = await User.findByIdAndUpdate(
       req.userId,
-      {
-        username,
-        bio,
-        avatar
-      },{
+    updatedData,
+    {
         returnDocument : "after"
       }
     )

@@ -16,10 +16,7 @@ export const signUpController = async(req, res) => {
 
     const {username, email, password} = parsedData.data
 
-    const existingUser = await User.findOne({
-        email :  email,
-        username : username
-    })
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] })
 
     if(existingUser){
         return res.status(400).json({

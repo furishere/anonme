@@ -106,7 +106,7 @@ export const SendAnonMessage = () => {
             <img
               src={
                 user?.avatar
-                  ? `http://localhost:3000${user.avatar}`
+                  ? `${import.meta.env.VITE_BACKEND_URL}${user.avatar}`
                   : defaultImage
               }
               alt="profile"

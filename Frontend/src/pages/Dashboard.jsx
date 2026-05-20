@@ -29,7 +29,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token")
 
       const response = await axios.get(
-        "http://localhost:3000/api/profile/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/profile/`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -48,7 +48,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token")
 
       const response = await axios.get(
-        "http://localhost:3000/api/message/private",
+        `${import.meta.env.VITE_BACKEND_URL}/api/message/private`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -88,7 +88,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token")
 
       await axios.delete(
-        `http://localhost:3000/api/message/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/message/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -120,7 +120,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token")
 
       await axios.patch(
-        `http://localhost:3000/api/message/${selectedMessage._id}/reply`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/message/${selectedMessage._id}/reply`,
         {
           reply: replyText
         },

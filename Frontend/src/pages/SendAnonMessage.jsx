@@ -24,7 +24,7 @@ export const SendAnonMessage = () => {
     try {
 
       const response = await axios.get(
-        `http://localhost:3000/api/message/${username}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/message/${username}`
       );
 
       setMessages(response.data.message);
@@ -39,7 +39,7 @@ export const SendAnonMessage = () => {
     try {
 
       const response = await axios.get(
-        `http://localhost:3000/api/profile/${username}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/profile/${username}`
       );
 
       setUser(response.data.user);
@@ -63,7 +63,7 @@ export const SendAnonMessage = () => {
       }
 
       await axios.post(
-        `http://localhost:3000/api/message/${username}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/message/${username}`,
         {
           text
         }
@@ -98,8 +98,6 @@ export const SendAnonMessage = () => {
     <div className="min-h-screen bg-[#f7f7f5] px-4 sm:px-6 py-8 sm:py-12 flex justify-center">
 
       <div className="w-full max-w-xl">
-
-        {/* USER CARD */}
 
         <div className="bg-white border border-[#ebebeb] rounded-[4px] px-4 sm:px-7 py-6 sm:py-8 text-center">
 

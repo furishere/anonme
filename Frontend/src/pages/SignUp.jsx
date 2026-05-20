@@ -43,7 +43,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
         {
           username,
           email,

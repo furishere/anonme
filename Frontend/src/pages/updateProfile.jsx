@@ -17,7 +17,7 @@ export const UpdateProfile = () => {
       const token = localStorage.getItem("token")
 
       const response = await axios.delete(
-        "http://localhost:3000/api/profile/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/profile/`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -53,7 +53,7 @@ export const UpdateProfile = () => {
       }
 
       const response = await axios.patch(
-        "http://localhost:3000/api/profile/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/profile/`,
         formData,
         {
           headers: {

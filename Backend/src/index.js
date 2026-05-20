@@ -7,18 +7,22 @@ import { messageRouter } from "./routes/messageRouter.js"
 import cors from "cors"
 const app = express()
 
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json())
 app.use(cors({
-    origin : "https://anonme.vercel.app/",
+    origin : "https://anonme.vercel.app",
     credentials : true
 }))
 
 connectDb()
+
+
 app.use("/uploads", express.static("src/uploads"))
 app.use("/api/auth", authRouter)
 app.use("/api/profile",profileRouter)
 app.use("/api/message",messageRouter)
 
-app.listen(3000, () => {
-    console.log("server running on port")
-})
+app.listen(PORT, () => {
+    console.log("server running on port", PORT);
+});

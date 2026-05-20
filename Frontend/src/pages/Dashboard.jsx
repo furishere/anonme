@@ -2,8 +2,14 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import defaultImage from "../assets/defaultImage.jpg"
+import API from "../app.js";
 
 export default function Dashboard() {
+  useEffect(() => {
+  API.get("/api")
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err));
+}, []);
   const navigate = useNavigate()
 
   const [user, setUser] = useState(null)

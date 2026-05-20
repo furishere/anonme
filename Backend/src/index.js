@@ -8,7 +8,10 @@ import cors from "cors"
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin : "https://anonme.vercel.app/",
+    credentials : true
+}))
 
 connectDb()
 app.use("/uploads", express.static("src/uploads"))

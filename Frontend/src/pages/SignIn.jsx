@@ -1,129 +1,132 @@
 import { useState } from "react";
 import { Inputdata } from "../components/Inputdata";
 import { Paragraph } from "../components/Paragraph";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Signin(){
-  const [email, setEmail] = useState("")
-  const [emailError, setEmailError] = useState("")
-  const[password, setPassword] = useState("")
-  const[passwordError, setPasswordError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [backendError, setBackendError] = useState("")
+export default function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const navigate = useNavigate()
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [backendError, setBackendError] = useState("");
 
-  async function handleSignin(){
-    setBackendError("")
-    try{
-      let Error = false
+  const [loading, setLoading] = useState(false);
 
-    if(!email.trim()){
-      setEmailError("email is required")
-      Error = true
+  const navigate = useNavigate();
+
+  const handleSignin = async () => {
+    setBackendError("");
+
+    let Error = false;
+
+    if (!email.trim()) {
+      setEmailError("email is required");
+      Error = true;
     }
 
-    if(!password.trim()){
-      setPasswordError("password is required")
-      Error = true
+    if (!password.trim()) {
+      setPasswordError("password is required");
+      Error = true;
     }
 
-    if(Error) return
+    if (Error) return;
 
-    setLoading(true)
-    const response = await axios.post(
-      "http://localhost:3000/api/auth/signin",{
-        email,
-        password
-      }
-    )
+    setLoading(true);
 
-  const token = response.data.token
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signin",
+        { email, password }
+      );
 
-  localStorage.setItem("token", token)
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-  localStorage.setItem(
-  "user",
-  JSON.stringify(response.data.user)
-  )
+      setEmail("");
+      setPassword("");
 
-  console.log(response.data)
-
-    setEmail("")
-    setPassword("")
-
-    navigate("/dashboard")
-
-    } catch(e){
-      setBackendError(e.response?.data?.message || "something went wrong")
+      navigate("/dashboard");
+    } catch (e) {
+      setBackendError(
+        e.response?.data?.message || "something went wrong"
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
+  };
 
-  }
+  return (
+    <div className="min-h-screen bg-[#F0EFEB] flex justify-center items-center px-4 py-8">
 
-  return <div className="flex justify-center  items-center">
-    <div  className="w-full max-w-xl  h-screen bg-white ">
-    <div className="mt-28 ml-10">
-    <div className="font-hero italic text-4xl">
-      Welcome back.
-    </div>
-    <Paragraph 
-    Paragraph={"Sign in to your inbox."}/>
+      <div className="w-full max-w-xl bg-white border border-[#ebebeb] rounded-sm">
 
-    <Inputdata 
-    Name={"Email"}
-    placeholderName={"enter your email"}
-    value={email}
-    onChange={(e) => {
-      setEmail(e.target.value)
-      setEmailError("")
-    }}/>
-    {
-      emailError && (
-        <div className="text-red-500 text-xs mt-1">
-          {emailError}
+        <div className="px-6 sm:px-10 py-10 sm:py-16">
+          <div className="font-hero italic text-3xl sm:text-5xl leading-tight">
+            Welcome back.
+          </div>
+
+          <div className="mt-3">
+            <Paragraph Paragraph={"Sign in to your inbox."} />
+          </div>
+
+          <div className="mt-8">
+            <Inputdata
+              Name={"EMAIL"}
+              placeholderName={"enter your email"}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError("");
+              }}
+            />
+
+            {emailError && (
+              <div className="text-red-500 text-xs mt-2">
+                {emailError}
+              </div>
+            )}
+          </div>
+
+          <div className="mt-5">
+            <Inputdata
+              Name={"PASSWORD"}
+              placeholderName={"enter your password"}
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError("");
+              }}
+            />
+
+            {passwordError && (
+              <div className="text-red-500 text-xs mt-2">
+                {passwordError}
+              </div>
+            )}
+          </div>
+          {backendError && (
+            <div className="text-red-500 text-sm mt-4">
+              {backendError}
+            </div>
+          )}
+
+          <button
+            onClick={handleSignin}
+            disabled={loading}
+            className="w-full mt-6 bg-black text-white py-3 rounded-sm text-sm font-roboto hover:opacity-90 transition cursor-pointer disabled:opacity-50"
+          >
+            {loading ? "Signing in..." : "Sign in"}
+          </button>
+
+          <div className="mt-5 text-center">
+            <Paragraph Paragraph="Your messages are end-to-end private. We never read them" />
+          </div>
+
         </div>
-      )
-    }
-
-    <Inputdata 
-    Name={"PASSWORD"}
-    placeholderName={" enter your password"}
-    value={password}
-    type="password"
-    onChange={(e) => {
-      setPassword(e.target.value)
-      setPasswordError("")
-    }}
-    />{
-      passwordError && (
-        <div className="text-red-500 text-xs mt-1">
-          {passwordError}
-        </div>
-      )
-    }
-  {
-  backendError && (
-    <div className="text-red-500 text-sm mt-3">
-      {backendError}
+      </div>
     </div>
-  )
-}
-
-    <div className="bg-black text-white py-1 w-full max-w-xs text-center font-roboto mt-4 rounded-sm">
-    <button
-    className="cursor-pointer"
-    onClick={handleSignin}
-    >{loading ?"sign in..." : "Sign in"}</button>
-    </div>
-    <div  className="mt-4">
-    <Paragraph 
-    Paragraph={"Your messages are end-to-end private. We never read them"}/>
-    </div>
-    </div>
-    </div>
-  </div>
-  
+  );
 }

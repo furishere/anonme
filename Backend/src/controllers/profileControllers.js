@@ -4,58 +4,48 @@ import { userSchema } from "../schemas/userSchema.js"
 
 export const updateProfile = async (req, res) => {
   try {
-    const avatar = req.file ? `/uploads/${req.file.filename}` : undefined
 
-    const parsedData = userSchema.safeParse({
-      ...req.body,
-      avatar
-    })
+    console.log(req.body)
+    console.log(req.file)
 
-    if (!parsedData.success) {
-      return res.status(400).json({
-        message: "Incorrect Inputs",
-        error: parsedData.error.issues
-      })
+    const updatedData = {}
+
+    if(req.body.username){
+      updatedData.username = req.body.username
     }
 
-    const { username, bio } = parsedData.data
-
-    const updatedData = {
-      username,
-      bio
+    if(req.body.bio){
+      updatedData.bio = req.body.bio
     }
 
-    if(avatar){
-      updatedData.avatar = avatar
+    if(req.file){
+      updatedData.avatar = `/uploads/${req.file.filename}`
     }
 
     const user = await User.findByIdAndUpdate(
       req.userId,
-    updatedData,
-    {
-        returnDocument : "after"
+      updatedData,
+      {
+        new: true
       }
     )
 
-    if (!user) {
+    if(!user){
       return res.status(404).json({
-        message: "User does not exist"
+        message: "user not found"
       })
     }
 
-    return res.status(200).json({
-      message: "Profile updated",
-      user: {
-        username: user.username,
-        bio: user.bio,
-        avatar: user.avatar
-      }
+    res.status(200).json({
+      message: "profile updated",
+      user
     })
 
-  } catch (e) {
-    return res.status(500).json({
-      message: "Internal server error",
-      error: e.message
+  } catch(e){
+    console.log(e)
+
+    res.status(500).json({
+      message: "internal server error"
     })
   }
 }
@@ -127,9 +117,11 @@ export const deleteProfile = async(req, res) => {
       })
     }
 
-    await Message.deleteMany(user)
+    await Message.deleteMany({
+      userId:user
+    })
 
-    res.status(200).json({
+    return res.status(200).json({
         message : "user deleted"
     })
 

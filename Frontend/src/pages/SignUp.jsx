@@ -4,147 +4,172 @@ import { Paragraph } from "../components/Paragraph";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp(){
-  const [username, setUsername] = useState("")
-  const[email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [emailError, setEmailError] = useState("")
-  const [usernameError, setUsernameError] = useState("")
-  const[passwordError, setPassowrdError] = useState("")
-  const [backendError, setBackendError] = useState("")
+export default function SignUp() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const [emailError, setEmailError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [backendError, setBackendError] = useState("");
 
-  const handleSignup = async() => {
+  const navigate = useNavigate();
 
-    setBackendError("")
+  const handleSignup = async () => {
+    setBackendError("");
 
-    let Error = false
+    let Error = false;
 
-    if(!email.trim()){
-      setEmailError("email is required")
-      Error = true
+    if (!username.trim()) {
+      setUsernameError("username is required");
+      Error = true;
     }
 
-    if(!username.trim()){
-      setUsernameError("username is required")
-      Error = true
+    if (!email.trim()) {
+      setEmailError("email is required");
+      Error = true;
     }
 
-    if(!password.trim()){
-      setPassowrdError("password is required")
-      Error = true
+    if (!password.trim()) {
+      setPasswordError("password is required");
+      Error = true;
     }
 
-    if(Error) return
+    if (Error) return;
 
-    setLoading(true)
-    try{
+    setLoading(true);
+
+    try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",{
+        "http://localhost:3000/api/auth/signup",
+        {
           username,
           email,
           password
         }
-      )
+      );
+
       console.log(response.data);
 
-      navigate("/signin")
+      setUsername("");
+      setEmail("");
+      setPassword("");
 
-      setEmail("")
-      setPassword("")
-      setUsername("")
-      
-    } catch(e){
+      navigate("/signin");
+
+    } catch (e) {
       setBackendError(
         e.response?.data?.message || "something went wrong"
-      )
-      
-    } finally{
-      setLoading(false)
+      );
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  return <div className="flex justify-center  items-center">
-    <div  className="w-full max-w-xl  h-screen bg-white ">
-    <div className="mt-28 ml-10">
-    <div className="font-hero italic text-4xl">
-      Create your Profile.
-    </div>
+  return (
+    <div className="min-h-screen bg-[#F0EFEB] flex justify-center items-center px-4 py-8">
 
-    <Paragraph
-    Paragraph={"Get your anonymous inbox in seconds."}/>
+      <div className="w-full max-w-xl bg-white border border-[#ebebeb] rounded-sm">
 
-    <Inputdata 
-    Name={"USERNAME"}
-    placeholderName={" enter your username"}
-    value={username}
-    onChange={(e) => {
-      setUsername(e.target.value)
-      setUsernameError("")
-    }}
-    />
-    {
-      usernameError && (
-        <div className="text-red-500 mt-1 text-xs">
-          {usernameError}
+        <div className="px-6 sm:px-10 py-10 sm:py-16">
+
+          <div className="font-hero italic text-3xl sm:text-5xl leading-tight">
+            Create your Profile.
+          </div>
+
+          <div className="mt-3">
+            <Paragraph
+              Paragraph={"Get your anonymous inbox in seconds."}
+            />
+          </div>
+
+
+          <div className="mt-8">
+            <Inputdata
+              Name={"USERNAME"}
+              placeholderName={"enter your username"}
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setUsernameError("");
+              }}
+            />
+
+            {usernameError && (
+              <div className="text-red-500 text-xs mt-2">
+                {usernameError}
+              </div>
+            )}
+          </div>
+
+
+          <div className="mt-5">
+            <Inputdata
+              Name={"EMAIL"}
+              placeholderName={"enter your email"}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError("");
+              }}
+            />
+
+            {emailError && (
+              <div className="text-red-500 text-xs mt-2">
+                {emailError}
+              </div>
+            )}
+          </div>
+
+
+          <div className="mt-5">
+            <Inputdata
+              Name={"PASSWORD"}
+              placeholderName={"enter your password"}
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError("");
+              }}
+            />
+
+            {passwordError && (
+              <div className="text-red-500 text-xs mt-2">
+                {passwordError}
+              </div>
+            )}
+          </div>
+
+
+          {backendError && (
+            <div className="text-red-500 text-sm mt-4">
+              {backendError}
+            </div>
+          )}
+
+
+          <button
+            onClick={handleSignup}
+            disabled={loading}
+            className="w-full mt-6 bg-black text-white py-3 rounded-sm text-sm font-roboto hover:opacity-90 transition cursor-pointer disabled:opacity-50"
+          >
+            {loading ? "Creating account..." : "Create an account"}
+          </button>
+
+
+          <div className="mt-5 text-center">
+            <Paragraph
+              Paragraph={
+                "By signing up you agree to our terms. No spam, ever."
+              }
+            />
+          </div>
+
         </div>
-      )
-    }
-
-    <Inputdata 
-    Name={"EMAIL"}
-    placeholderName={"enter your email"}
-    value={email}
-    onChange={(e) => {
-      setEmail(e.target.value)
-      setEmailError("")}
-    }
-    />
-    {
-      emailError && (
-        <div className="text-red-500 text-xs mt-1">
-          {emailError}
-        </div>
-      )
-    }
-
-    <Inputdata 
-    Name={"PASSWORD"}
-    placeholderName={"enter your password"}
-    type="password"
-    value={password}
-    onChange={(e) => {
-    setPassword(e.target.value)
-    setPassowrdError("")
-    }}/>
-    {
-      passwordError&& (
-        <div className="text-xs text-red-500 mt-1">
-          {passwordError}
-        </div>
-      )
-    }{
-      backendError && (
-        <div className="text-red-500 text-sm mt-3">
-          {backendError}
-        </div>
-      )
-    }
-
-    <div className="bg-black text-white py-1 w-full max-w-xs text-center font-roboto mt-4 rounded-sm">
-      <button onClick={handleSignup}
-      className="cursor-pointer"> 
-      {loading ? "Creating account..." : "Create an account"} 
-      </button>
+      </div>
     </div>
-    <div  className="mt-4 items-center">
-    <Paragraph 
-    Paragraph={"By signing up you agree to our terms. No spam, ever."}/>
-    </div>
-    </div>
-    </div>
-  </div>
-  
+  );
 }

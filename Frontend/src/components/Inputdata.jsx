@@ -18,7 +18,7 @@ export const Inputdata = ({
         onChange={onChange}
         type = {type}
         placeholder={placeholderName}
-        className="border border-[#e5e5e5] w-full max-w-xs rounded-sm mt-1 py-2 outline-none focus:outline focus:outline-1 focus:outline-black placeholder:font-roboto px-2 text-xs" />
+        className="border border-[#e5e5e5] w-full  rounded-sm mt-1 py-2 outline-none focus:outline focus:outline-1 focus:outline-black placeholder:font-roboto px-2 text-xs" />
       </label>
     </div>
 }

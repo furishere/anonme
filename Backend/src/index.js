@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cors())
 
 connectDb()
-app.use("/uploads", express.static("uploads"))
+app.use("/uploads", express.static("src/uploads"))
 app.use("/api/auth", authRouter)
 app.use("/api/profile",profileRouter)
 app.use("/api/message",messageRouter)

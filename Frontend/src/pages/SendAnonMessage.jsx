@@ -169,7 +169,6 @@ export const SendAnonMessage = () => {
 
         </div>
 
-        {/* REPLIED MESSAGES */}
 
         <div className="mt-8">
 
@@ -229,9 +228,6 @@ export const SendAnonMessage = () => {
         </div>
 
       </div>
-
-      {/* SUCCESS MODAL */}
-
       {success && (
 
         <div className="fixed inset-0 bg-black/40 z-50 flex justify-center items-center px-4">

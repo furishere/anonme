@@ -34,11 +34,7 @@ export const LandingPage = () => {
   return (
     <div className="w-full overflow-hidden bg-white">
 
-      {/* HERO SECTION */}
-
       <div className='flex justify-center items-center flex-col px-5 sm:px-8'>
-
-        {/* TOP BADGE */}
 
         <div className='bg-[#F5F5F5] py-2 px-5 border border-[#E5E5E5] rounded-full mt-10 sm:mt-16 text-xs sm:text-sm font-roboto text-[#777777] flex items-center gap-2 text-center'>
           <div className='bg-[#4ade80] h-[7px] w-[7px] rounded-full shrink-0'></div>
@@ -48,21 +44,15 @@ export const LandingPage = () => {
           </div>
         </div>
 
-        {/* HERO TITLE */}
-
         <div className='font-hero text-5xl sm:text-7xl md:text-8xl italic mt-10 sm:mt-16 text-center leading-none'>
           Anon Me.
         </div>
-
-        {/* HERO DESCRIPTION */}
 
         <div className='text-sm sm:text-base font-roboto text-[#828997] mt-4 text-center leading-7 max-w-xl'>
           Collect honest, anonymous feedback from anyone
           <br className='hidden sm:block' />
           quick, private, and beautifully simple.
         </div>
-
-        {/* BUTTONS */}
 
         <div className='flex flex-col sm:flex-row gap-4 items-center mt-10 sm:mt-14 w-full sm:w-auto'>
 
@@ -82,8 +72,6 @@ export const LandingPage = () => {
 
         </div>
 
-        {/* WHY CHOOSE */}
-
         <div className='bg-black w-full flex justify-center items-center flex-col min-h-[500px] mt-16 sm:mt-20 px-5 py-14'>
 
           <div className='text-white font-roboto text-2xl sm:text-3xl text-center'>
@@ -97,8 +85,6 @@ export const LandingPage = () => {
           <div className='text-[#505555] text-sm font-roboto mt-3 text-center'>
             Simple by design. Honest by nature.
           </div>
-
-          {/* BOXES */}
 
           <div className='flex flex-col lg:flex-row mt-12 gap-6 lg:gap-10 w-full justify-center items-center'>
 
@@ -123,8 +109,6 @@ export const LandingPage = () => {
           </div>
 
         </div>
-
-        {/* HOW IT WORKS */}
 
         <div className="bg-white px-5 sm:px-12 py-14 w-full max-w-5xl">
 
@@ -160,8 +144,6 @@ export const LandingPage = () => {
             ))}
 
           </div>
-
-          {/* CTA BUTTON */}
 
           <button
             className="mt-10 bg-black text-white px-7 py-3 rounded-[2px] text-[13px] hover:bg-neutral-800 transition-colors border-none cursor-pointer w-full sm:w-auto"
